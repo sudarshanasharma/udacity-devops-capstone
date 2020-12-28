@@ -12,4 +12,4 @@ docker images ls
 
 # Step 3: 
 # Run app
-#docker run -p 80:80 sudarshanas/capstone
+docker run -p 80:8000 -d sudarshanas/capstone
