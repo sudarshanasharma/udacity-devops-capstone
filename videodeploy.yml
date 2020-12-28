@@ -44,21 +44,20 @@ spec:
           imagePullPolicy: Always
           name: capstone-project-cloud-devops
           ports:
-            - containerPort: 80
+            - name: web
+              containerPort: 8000
+              protocol: TCP
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: capstone-project-cloud-devops
-  labels:
-    app: capstone-project-cloud-devops
 spec:
-  type: LoadBalancer
   selector:
     app: capstone-project-cloud-devops
   ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 30000
-      protocol: TCP
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: LoadBalancer

@@ -1,5 +1,3 @@
-Upload_docker.sh
-
 #!/usr/bin/env bash
 # This file tags and uploads an image to Docker Hub
 
@@ -13,7 +11,7 @@ dockerpath='sudarshanas/capstone'
 # Authenticate & tag
 echo "Docker ID and Image: $dockerpath"
 docker login 
-docker tag capstone sudarshanas/capstone:latest
+#docker tag 631da41f37e8 sudarshanas/capstone:latest
 
 # Step 3:
 # Push image to a docker repository
