@@ -64,7 +64,6 @@ pipeline {
                       sh "kubectl config use-context arn:aws:eks:us-west-2:556332433231:cluster/capstonecluster"
 		      sh "kubectl apply -f videodeploy.yml"
                       sh "kubectl set image deployments/capstone-project-cloud-devops capstone-project-cloud-devops=sudarshanas/capstone:latest" 
-		      sh "kubectl expose deployment capstone-project-cloud-devops --type=LoadBalancer --name=capstone-project-cloud-devops"
                       sh "kubectl get nodes"
                       sh "kubectl get deployment"
                       sh "kubectl get pod -o wide"
