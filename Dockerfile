@@ -15,6 +15,6 @@ RUN rm -rf  /usr/share/nginx/html/*
 COPY index.html /usr/share/nginx/html/
 RUN cd /usr/share/nginx/html/ && ls
 RUN cd /usr/share/nginx/html/ && cat index.html
-EXPOSE 8000
+EXPOSE 80
 # EXPOSE 800000
 CMD ["nginx", "-g" , "daemon off;"]
