@@ -56,55 +56,21 @@ pipeline {
             }
         }
     }
-    	stage('Create config file cluster') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'awscli') {
-					sh '''
-						aws eks --region us-west-2 update-kubeconfig --name capstonecluster
-					'''
-		    	}
-    		}
-	    }
-		stage('Deploy blue container') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'awscli') {
-					sh '''
-						kubectl apply -f ./blue-controller.json
-					'''
-				}
-			}
-        }
-		stage('Deploy green container') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'awscli') {
-					sh '''
-						kubectl apply -f ./green-controller.json
-					'''
-				}
-			}
-		}
-		stage('Create the service in the cluster, redirect to blue') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'awscli') {
-					sh '''				
-						kubectl apply -f ./blue-service.json
-					'''
-				}
-			}
-		}
-		stage('Waiting for Aproval') {
-            steps {
-                input "Route traffic to Green?"
-            }
-        }
-		stage('Route Service to Cluster, redirecting to green') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'awscli') {
-					sh '''
-						kubectl apply -f ./green-service.json
-					'''
-				}
-			}
+        stage('Deploying') {
+            steps{
+                  echo 'Deploying to AWS...'
+                  withAWS(credentials: 'awscli', region: 'us-west-2') {
+                      sh "aws eks --region us-west-2 update-kubeconfig --name capstonecluster"
+                      sh "kubectl config use-context arn:aws:eks:us-west-2:556332433231:cluster/capstonecluster"
+                      sh "kubectl set image deployments/capstone-project-cloud-devops capstone-project-cloud-devops=sudarshanas/capstone:latest"
+                      sh "kubectl apply -f deployment/videodeploy.yml"
+		      sh "kubectl expose deployment hello-world --type=LoadBalancer --name=capstone-project-cloud-devops"
+                      sh "kubectl get nodes"
+                      sh "kubectl get deployment"
+                      sh "kubectl get pod -o wide"
+                      sh "kubectl get service/capstone-project-cloud-devops"
+                  }
+              }
         }
     }
 }
