@@ -12,9 +12,9 @@ pipeline {
 		    script {
 			     def response = httpRequest "https://www.google.com"
 			     def json = new JsonSlurper().parseText(response.content)
-
+                             echo "*********************************************"
                              echo "Status: ${response.status}"
-
+                             echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
                     
 			    if (${response.status} != 200) {
 				sh "kubectl rollout undo deployment capstone-project-cloud-devops"
