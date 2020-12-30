@@ -62,7 +62,7 @@ pipeline {
 
                         echo "HTTP response status code: $code"
 			echo $response
-			flag = ( $response | grep "Welcome")
+			flag = 0
 			echo $flag
                         if (!flag) {
 				sh "kubectl rollout undo deployment capstone-project-cloud-devops"
