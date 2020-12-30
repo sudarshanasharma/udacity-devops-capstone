@@ -55,8 +55,11 @@ pipeline {
             steps {
 		    script {
 		                 def response = sh(script: 'curl http://afa2a891f22f346919416363ec94c19d-1994734675.us-west-2.elb.amazonaws.com:8000', returnStdout: true)
-                        if (response.contains("Udacity") == true) {
+                            echo response
+			    if (response.contains("Udacity") == true) {
+				 withAWS(credentials: 'awscli', region: 'us-west-2') {
 			            	sh "kubectl rollout undo deployment capstone-project-cloud-devops"
+				 }
                         }
 		      }
             }
