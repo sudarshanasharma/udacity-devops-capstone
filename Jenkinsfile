@@ -10,9 +10,7 @@ pipeline {
             steps {
 		    script {
 			    def response = sh(script: 'curl https://www.google.com', returnStdout: true)
-			    def result = response.findAll { it.contains('twitter') }
-      
-			    if (result) {
+			    if (response.contains("twitter")) {
 				echo "its there%%%%%%%%%%%%%%%%%%"
                             
                         }
