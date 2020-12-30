@@ -5,5 +5,5 @@ eksctl create cluster \
 --region us-west-2 \
 --nodegroup-name standard-nodes \
 --node-type t2.micro \
---nodes 2 --nodes-min 1 --nodes-max 4 \
+--nodes 3 --nodes-min 2 --nodes-max 4 \
 --zones us-west-2a --zones us-west-2b --zones us-west-2c
