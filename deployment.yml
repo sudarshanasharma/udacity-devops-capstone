@@ -11,10 +11,11 @@ spec:
     matchLabels:
       app: capstone-project-cloud-devops
   strategy:
+    type: RollingUpdate
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
-    type: RollingUpdate
+    revisionHistoryLimit: 5
   template:
     metadata:
 apiVersion: apps/v1
