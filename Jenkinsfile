@@ -55,12 +55,7 @@ pipeline {
             steps {
 		    script {
 			    final String app_url = "http://a57f410fc160c4be08dd2434bc07457e-1373923847.us-west-2.elb.amazonaws.com:8000"
-			    final def (String response, int code) =
-                            sh(script: "curl -s -w '\\n%{response_code}' $app_url", returnStdout: true)
-                                .trim()
-                                .tokenize("\n")
-
-                        echo "HTTP response status code: $code"
+                            final String response = sh(script: "curl -s $app_url", returnStdout: true).trim()
 			echo $response
 			flag = 0
 			echo $flag
