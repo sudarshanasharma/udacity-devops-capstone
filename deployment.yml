@@ -15,7 +15,6 @@ spec:
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
-    revisionHistoryLimit: 5
   template:
     metadata:
       labels:
