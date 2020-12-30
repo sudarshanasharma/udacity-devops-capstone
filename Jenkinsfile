@@ -10,8 +10,10 @@ pipeline {
         stage ('Checking curl response') {
             steps {
 		    script {
-			     def response = httpRequest "https://www.google.com"
-			     def json = new JsonSlurper().parseText(response.content)
+			     def patchOrg = """
+                                               {"description": "$description"}    
+                                            """
+			     def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: patchOrg, url: "https://www.google.com"
                              echo "*********************************************"
                              echo "Status: ${response.status}"
                              echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
