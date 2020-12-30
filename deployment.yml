@@ -1,23 +1,63 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: capstone-project
+  name: capstone-project-cloud-devops
   labels:
-    app: capstone-project
+    app: capstone-project-cloud-devops
+  namespace: default
 spec:
-  strategy:
-    type: RollingUpdate
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: capstone-project
+      app: capstone-project-cloud-devops
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capstone-project-cloud-devops
+  labels:
+    app: capstone-project-cloud-devops
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: capstone-project-cloud-devops
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
-        app: capstone-project 
+        app: capstone-project-cloud-devops
     spec:
       containers:
-        - name: nginx
-          image: nginx:1.19.2
+        - image: sudarshanas/capstone
+          imagePullPolicy: Always
+          name: capstone-project-cloud-devops
           ports:
-            - containerPort: 80
+            - name: web
+              containerPort: 80
+              protocol: TCP
+              
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: capstone-project-cloud-devops
+spec:
+  selector:
+    app: capstone-project-cloud-devops
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 80
+  type: LoadBalancer
