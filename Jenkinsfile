@@ -1,4 +1,3 @@
-import groovy.json.JsonSlurper
 pipeline {
   environment {
     registry = "sudarshanas/capstone"
@@ -10,13 +9,9 @@ pipeline {
         stage ('Checking curl response') {
             steps {
 		    script {
-			     def patchOrg = """
-                                               {"description": "$description"}    
-                                            """
-			     def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'PATCH', requestBody: patchOrg, url: "https://www.google.com"
-                             echo "*********************************************"
+			    def response = sh(script: 'curl https://some-host/some-service/getApi?apikey=someKey', returnStdout: true)
                              echo "Status: ${response.status}"
-                             echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+                             echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + response
                     
 			    if (${response.status} != 200) {
 				sh "kubectl rollout undo deployment capstone-project-cloud-devops"
