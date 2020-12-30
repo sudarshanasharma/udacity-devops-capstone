@@ -54,12 +54,12 @@ pipeline {
         stage ('Checking curl response') {
             steps {
 		    script {
-			    script{def response = httpRequest authentication: 'awscli', url: "http://a57f410fc160c4be08dd2434bc07457e-1373923847.us-west-2.elb.amazonaws.com:8000"}
+			    script{def response = httpRequest "http://a57f410fc160c4be08dd2434bc07457e-1373923847.us-west-2.elb.amazonaws.com:8000"}
 			   
-			    echo $response
-			
-		
-                        if (true) {
+			    println('Status: '+response.status)
+                            println('Response: '+response.content)
+			    
+                        if (response.status != 200) {
 				sh "kubectl rollout undo deployment capstone-project-cloud-devops"
                             
                         }
