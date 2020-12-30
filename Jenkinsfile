@@ -54,8 +54,8 @@ pipeline {
         stage ('Checking curl response') {
             steps {
 		    script {
-                            final String palkires = sh(script: "curl -s http://a57f410fc160c4be08dd2434bc07457e-1373923847.us-west-2.elb.amazonaws.com:8000", returnStdout: true).trim()
-			echo $palkires
+			    curl -s -o /dev/null -w "%{http_code}" http:http://a57f410fc160c4be08dd2434bc07457e-1373923847.us-west-2.elb.amazonaws.com:8000
+		
                         if (true) {
 				sh "kubectl rollout undo deployment capstone-project-cloud-devops"
                             
