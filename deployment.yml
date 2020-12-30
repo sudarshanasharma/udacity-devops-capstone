@@ -21,7 +21,7 @@ spec:
         app: capstone-project-cloud-devops
     spec:
       containers:
-        - image: sudarshanas/capstone
+        - image: sudarshanas/capstone:latest
           imagePullPolicy: Always
           name: capstone-project-cloud-devops
           ports:
