@@ -51,20 +51,22 @@ pipeline {
                   }
               }
         }
-####Add check for curl and revert to old image or go ahead with new image
         stage ('Checking curl response') {
             steps {
 		    script {
-			    final String url = "http://www.google.com"
+			    final String url = "http://a57f410fc160c4be08dd2434bc07457e-1373923847.us-west-2.elb.amazonaws.com:8000"
 			    final def (String response, int code) =
                             sh(script: "curl -s -w '\\n%{response_code}' $url", returnStdout: true)
                                 .trim()
                                 .tokenize("\n")
 
                         echo "HTTP response status code: $code"
-
-                        if (code == 200) {
-                            echo response
+			echo $response
+			flag = ( $response | grep "Welcome")
+			echo $flag
+                        if (!flag) {
+				sh "kubectl rollout undo deployment capstone-project-cloud-devops"
+                            
                         }
             
 		    }
