@@ -54,9 +54,8 @@ pipeline {
         stage ('Checking curl response') {
             steps {
 		    script {
-			    final String app_url = "http://a57f410fc160c4be08dd2434bc07457e-1373923847.us-west-2.elb.amazonaws.com:8000"
-                            final String response = sh(script: "curl -s $app_url", returnStdout: true).trim()
-			echo $response
+                            final String result = sh(script: "curl -s http://a57f410fc160c4be08dd2434bc07457e-1373923847.us-west-2.elb.amazonaws.com:8000", returnStdout: true).trim()
+			echo $result
 			flag = 0
 			echo $flag
                         if (!flag) {
