@@ -9,7 +9,7 @@ pipeline {
         stage ('Checking curl response') {
             steps {
 		    script {
-			    def response = sh(script: 'curl https://some-host/some-service/getApi?apikey=someKey', returnStdout: true)
+			    def response = sh(script: 'curl https://www.google.com', returnStdout: true)
                              echo "Status: ${response.status}"
                              echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + response
                     
