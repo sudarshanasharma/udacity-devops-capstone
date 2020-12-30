@@ -59,6 +59,10 @@ pipeline {
 			    if (response.contains("Udacity") == true) {
 				 withAWS(credentials: 'awscli', region: 'us-west-2') {
 			            	sh "kubectl rollout undo deployment capstone-project-cloud-devops"
+					sh "kubectl rollout history deployment/capstone-project-cloud-devops"
+                                        sh "kubectl get deployment"
+                                        sh "kubectl get pod -o wide"
+                                        sh "kubectl get service/capstone-project-cloud-devops"
 				 }
                         }
 		      }
