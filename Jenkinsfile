@@ -10,7 +10,7 @@ pipeline {
             steps {
 		    script {
 			    def response = sh(script: 'curl https://www.google.com', returnStdout: true)
-			    if (response.contains("twitter")) {
+			    if (!{response.contains("apple")}) {
 				echo "its there%%%%%%%%%%%%%%%%%%"
                             
                         }
