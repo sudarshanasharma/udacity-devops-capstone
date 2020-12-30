@@ -10,10 +10,9 @@ pipeline {
             steps {
 		    script {
 			    def response = sh(script: 'curl https://www.google.com', returnStdout: true)
-                             echo "Status: ${response.status}"
                              echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + response
                     
-			    if (${response.status} != 200) {
+			    if (0) {
 				sh "kubectl rollout undo deployment capstone-project-cloud-devops"
                             
                         }
