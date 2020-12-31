@@ -18,7 +18,7 @@ pipeline {
               steps {
 		      script {
 			      docker.withRegistry('', registryCredential){
-				      sh 'docker build  --no-cache=true -t ${registry}:${dockerTag} .'
+				      sh 'docker build  --no-cache=true -t ${registry}:${dockerTag}  .'
 				      sh 'docker push ${registry}:${dockerTag}'
 			      }
 		      }
