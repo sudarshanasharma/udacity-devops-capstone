@@ -46,7 +46,6 @@ pipeline {
                       sh "aws eks --region us-west-2 update-kubeconfig --name capstonecluster"
 		      sh "kubectl config use-context arn:aws:eks:us-west-2:556332433231:cluster/capstonecluster"
                       sh "kubectl set image deployments/capstone-project-cloud-devops capstone-project-cloud-devops=${registry}:${dockerTag}"
-		      sh "kubectl rollout status deployment capstone-project-cloud-devops"
                       sh "kubectl get nodes"
                       sh "kubectl get deployment"
                       sh "kubectl get pod -o wide"
@@ -62,7 +61,6 @@ pipeline {
 			    if (response.contains("Sudipta") == false) {
 				 withAWS(credentials: 'awscli', region: 'us-west-2') {
 			            	sh "kubectl rollout undo deployment capstone-project-cloud-devops"
-					sh "kubectl rollout status deployment capstone-project-cloud-devops"
 					sh "kubectl rollout history deployment/capstone-project-cloud-devops"
                                         sh "kubectl get deployment"
                                         sh "kubectl get pod -o wide"
