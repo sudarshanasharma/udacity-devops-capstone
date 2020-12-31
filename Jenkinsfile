@@ -14,6 +14,7 @@ pipeline {
 				sh 'tidy -q -e index.html'
 				sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
 			      }
+			      }
 			}
 		}
 		
