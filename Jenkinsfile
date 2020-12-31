@@ -2,7 +2,7 @@ pipeline {
   environment {
     registry = "sudarshanas/capstone"
     registryCredential = 'dockerhub'
-    dockerImage = ''
+    dockerTag = sh(returnStdout: true, script: "echo $(date +%Y%m%d%H%M%S)")
 }
 	agent any
 	stages {
