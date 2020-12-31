@@ -18,9 +18,9 @@ pipeline {
               steps {
 		      script {
 			      docker.withRegistry('', registryCredential){
-				      sh "timestamp=$(date +%Y%m%d%H%M%S)"  
-				      sh "docker build  --no-cache=true -t sudarshanas/capstone:${timestamp} ."
-				      sh "docker push sudarshanas/capstone:${timestamp}"
+				      sh 'timestamp=$(date +%Y%m%d%H%M%S)' 
+				      sh 'docker build  --no-cache=true -t sudarshanas/capstone:${timestamp} .'
+				      sh 'docker push sudarshanas/capstone:${timestamp}'
 			      }
 		      }
               }
