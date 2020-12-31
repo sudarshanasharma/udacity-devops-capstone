@@ -12,7 +12,7 @@ pipeline {
 				script {
 			      docker.withRegistry('', registryCredential){
 				sh 'tidy -q -e index.html'
-				sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
+				sh 'docker run --rm -i hadolint/hadolint --ignore DL3003 --ignore DL300 < Dockerfile'
 			      }
 			      }
 			}
