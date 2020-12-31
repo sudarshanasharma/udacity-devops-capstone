@@ -18,11 +18,8 @@ pipeline {
               steps {
 		      script {
 			      docker.withRegistry('', registryCredential){
-				      sh 'timestamp=$(date +%Y%m%d%H%M%S)' 
-				      sh "image="sudarshanas/capstone"
-				      sh "tag=${image}:${timestamp}"
-				      sh 'docker build  --no-cache=true -t $tag .'
-				      sh 'docker push $tag'
+				      sh "docker build  --no-cache=true -t $registry:$dockerTag ."
+				      sh "docker push $registry:$dockerTag"
 			      }
 		      }
               }
