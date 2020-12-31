@@ -18,9 +18,9 @@ pipeline {
               steps {
 		      script {
 			      docker.withRegistry('', registryCredential){
-		              sh 'timestamp=$(date +%Y%m%d%H%M%S)'  
-                              sh 'docker build  --no-cache=true -t sudarshanas/capstone:timestamp .'
-		              sh 'docker push sudarshanas/capstone:timestamp'
+		              sh "timestamp=$(date +%Y%m%d%H%M%S)"  
+                              sh "docker build  --no-cache=true -t sudarshanas/capstone:timestamp ."
+		              sh "docker push sudarshanas/capstone:timestamp"
 			      }
 		      }
               }
@@ -56,7 +56,7 @@ pipeline {
 		    script {
 		                 def response = sh(script: 'curl http://ae76f0ccf426e44b0b14acee14cbd17e-1789899296.us-west-2.elb.amazonaws.com:8000', returnStdout: true)
                             echo response
-			    if (response.contains("Udacity") == false) {
+			    if (response.contains("sudipta") == false) {
 				 withAWS(credentials: 'awscli', region: 'us-west-2') {
 			            	sh "kubectl rollout undo deployment capstone-project-cloud-devops"
 					sh "kubectl rollout status deployment capstone-project-cloud-devops"
