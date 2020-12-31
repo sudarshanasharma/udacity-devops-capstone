@@ -3,8 +3,7 @@ FROM nginx:latest
 # hadolint ignore=DL4000
 #LABEL maintainer="Sudarshana Sharma <sudarshana.sharma7@gmail.com>"
 #MAINTAINER = "sudarshana.sharma7@gmail.com"
-###RUN apt-get update && apt-get install -y nginx
-WORKDIR .
+###RUN apt-get update && apt-get install -y ngi
 
 RUN rm -rf  /usr/share/nginx/html/*
 COPY index.html /usr/share/nginx/html/
