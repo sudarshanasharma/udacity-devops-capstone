@@ -9,11 +9,14 @@ pipeline {
 	stages {
 		stage('Lint files'){
 			steps {
+				script {
+			      docker.withRegistry('', registryCredential){
 				sh 'tidy -q -e index.html'
-				sh 'sudo /bin/hadolint Dockerfile'
+				sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
+			      }
 			}
 		}
-        
+		
 		
 	  stage('Build and push Docker Image') {
               steps {
