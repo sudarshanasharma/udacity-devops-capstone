@@ -16,7 +16,7 @@ pipeline {
 		
 	  stage('Build Docker Image') {
               steps {
-                  sh 'docker build -t --no-cache=true capstone-project-cloud-devops .'
+                  sh 'docker build  --no-cache=true -t capstone-project-cloud-devops .'
               }
          }
  
