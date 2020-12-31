@@ -1,8 +1,8 @@
 pipeline {
   environment {
-    registry = "sudarshanas/capstone"
+    registry = 'sudarshanas/capstone'
     registryCredential = 'dockerhub'
-    dockerTag = sh(returnStdout: true, script: "echo $BUILD_ID")
+	  dockerTag = sh(returnStdout: true, script: 'echo ${BUILD_ID}')
 }
 	agent any
 	stages {
@@ -18,8 +18,8 @@ pipeline {
               steps {
 		      script {
 			      docker.withRegistry('', registryCredential){
-				      sh "docker build  --no-cache=true -t $registry:$dockerTag ."
-				      sh "docker push $registry:$dockerTag"
+				      sh 'docker build  --no-cache=true -t ${registry}:${dockerTag} .'
+				      sh 'docker push ${registry}:${dockerTag}'
 			      }
 		      }
               }
