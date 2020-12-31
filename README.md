@@ -15,11 +15,11 @@
 
 ***
 
-<p>I developed a CI/CD pipeline for kubernetes microservices application with Rolling deployment. I opted for Rolling deployment instead of "Blue/Green", as this feature is already present in Kubernetes, and can be implemented by specifying strategy type as "RollingUpdate" in deployment specifications.  using  I developed Continuous Integration steps, such as typographical checking (aka “linting”). I also developed Continuous Deployment steps. These includes:</p>
-
+<p>I developed a CI/CD pipeline for kubernetes microservices application with Rolling deployment. I opted for Rolling deployment instead of "Blue/Green", as this feature is already present in Kubernetes, and can be implemented by specifying strategy type as "RollingUpdate" in deployment specifications. The CI/CD pipeline also includes the steps, such as:</p>
 <ul>
+	<li>Typographical checking (aka “linting”)</li>
 	<li>Pushing the built Docker containers to the Docker repository</li>
-	<li>Deploying these Docker containers to a small Kubernetes cluster. For Kubernetes cluster I used AWS EKS. To deploy my Kubernetes cluster using Cloudformation. I ran these from Jenkins as an independent pipeline.</li>
+	<li>Deploying these Docker containers to a small Kubernetes cluster using AWS EKS</li>
 </ul>
 
 ***
@@ -29,9 +29,9 @@
 <ul>
   <li>Create a <code>Dockerfile</code></li>
   <li>Create a <code>Jenkinsfile</code> including all the necessary steps</li>
-  <li>Launch EC2 instance with security group configured to allow the SSH port 22, Jenkins port 8080 and Container port 8000 </li>
-  <li>Install Jenkins and all the necessary plugins in the EC2 Instance</li>
-  <li>Install Jenkins and all the necessary plugins in the EC2 Instance</li>
+  <li>Launch EC2 instance with security group configured to allow the SSH port **22**, Jenkins port **8080** and Container port **8000** </li>
+  <li>SSH into the EC2 instance and install docker, aws cli, eksctl, kubectl, hadolint, tidy, etc</li>
+  <li>Install Jenkins and all the necessary plugins and configure it with credentials for dockerhub and aws-cli</li>
 </ul>
 
 
@@ -44,7 +44,7 @@
   <li>When the above command returns EKSCTL CREATED as True, cluster is ready for deployment</li>
   <li>Edit deployment.yml if you wish to change any of the specifications of the deployment or service</li>
   <li>Run script to deploy the application: <code>./create_initial_deployment.sh</code></li>
-  <li>The App-URL can be checked by opening browser @ http://EXTERNAL-IP:8000, when the service information is displayed on the console</li>
+  <li>The App-URL can be checked by opening browser <code>http://EXTERNAL-IP:8000</code>, when the service information is displayed on the console</li>
   
 </ul>
 
