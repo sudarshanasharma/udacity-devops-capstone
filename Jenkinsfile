@@ -16,7 +16,7 @@ pipeline {
 		
 	  stage('Build Docker Image') {
               steps {
-                  sh 'docker build  --no-cache=true -t capstone-project-cloud-devops .'
+                  sh 'docker build  --no-cache=true -t sudarshanas/capstone:latest .'
               }
          }
  
@@ -24,7 +24,7 @@ pipeline {
             steps {
                     script {
                 docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
+                          sh 'docker push sudarshanas/capstone:latest'
                     }
                 }
             }
