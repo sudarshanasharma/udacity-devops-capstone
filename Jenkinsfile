@@ -10,7 +10,7 @@ pipeline {
 		stage('Lint files'){
 			steps {
 				sh 'tidy -q -e index.html'
-				sh '/bin/hadolint Dockerfile'
+				sh 'sudo /bin/hadolint Dockerfile'
 			}
 		}
         
