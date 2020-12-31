@@ -1,6 +1,6 @@
 FROM nginx:latest
 
-hadolint ignore=DL3003
+##hadolint ignore=DL3003
 #-ignore DL3003 --ignore DL300
 #LABEL maintainer="Sudarshana Sharma <sudarshana.sharma7@gmail.com>"
 #MAINTAINER = "sudarshana.sharma7@gmail.com"
