@@ -12,13 +12,14 @@ pipeline {
 				
 			}
 		}
-        stage('Build Docker Container'){
-            steps {
-                    script {
-              dockerImage = docker.build(registry)
-            }
-      }
-    }
+        
+		
+	  stage('Build Docker Image') {
+              steps {
+                  sh 'docker build -t --no-cache=true capstone-project-cloud-devops .'
+              }
+         }
+ 
         stage('Build & Push to dockerhub'){
             steps {
                     script {
