@@ -14,21 +14,19 @@ pipeline {
 		}
         
 		
-	  stage('Build Docker Image') {
+	  stage('Build and push Docker Image') {
               steps {
-                  sh 'docker build  --no-cache=true -t sudarshanas/capstone:latest .'
+		      script {
+			      docker.withRegistry('', registryCredential){
+		              sh 'timestamp=$(date +%Y%m%d%H%M%S)'  
+                              sh 'docker build  --no-cache=true -t sudarshanas/capstone:$timestamp .'
+		              sh 'docker push sudarshanas/capstone:$timestamp'
+			      }
+		      }
               }
          }
  
-        stage('Build & Push to dockerhub'){
-            steps {
-                    script {
-                docker.withRegistry('', registryCredential) {
-                          sh 'docker push sudarshanas/capstone:latest'
-                    }
-                }
-            }
-        }
+        
         stage('Clean Docker up') {
             steps {
                 script {
@@ -43,7 +41,7 @@ pipeline {
                   withAWS(credentials: 'awscli', region: 'us-west-2') {
                       sh "aws eks --region us-west-2 update-kubeconfig --name capstonecluster"
 		      sh "kubectl config use-context arn:aws:eks:us-west-2:556332433231:cluster/capstonecluster"
-                      sh "kubectl set image deployments/capstone-project-cloud-devops capstone-project-cloud-devops=sudarshanas/capstone:latest"
+                      sh "kubectl set image deployments/capstone-project-cloud-devops capstone-project-cloud-devops=sudarshanas/capstone"
 		      sh "kubectl apply -f deployment.yml"
 		      sh "kubectl rollout status deployment capstone-project-cloud-devops"
                       sh "kubectl get nodes"
