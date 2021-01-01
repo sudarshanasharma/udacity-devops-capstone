@@ -1,4 +1,4 @@
-FROM nginx:stable
+FROM nginx:1.19
 
 ##hadolint ignore=DL3003
 #-ignore DL3003 --ignore DL300
