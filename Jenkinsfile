@@ -56,7 +56,7 @@ pipeline {
         stage ('Check curl response to URL and revert if needed') {
             steps {
 		    script {
-		                 def response = sh(script: 'curl http://aa1a912bbbdd2451aaf8ce98f0c53d57-1092235872.us-west-2.elb.amazonaws.com:8000', returnStdout: true)
+		                 def response = sh(script: 'curl http://af9204b03aa7045da9f1238dd6056d6e-644557594.us-west-2.elb.amazonaws.com:8000', returnStdout: true)
                             echo response
 			    if (response.contains("Sudipta") == false) {
 				 withAWS(credentials: 'awscli', region: 'us-west-2') {
